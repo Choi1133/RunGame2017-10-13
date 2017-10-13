@@ -55,12 +55,10 @@ void cMainGame::Update()
 			RECT rt;
 			if (IntersectRect(&rt,
 				&m_pPlayer->GetPlayerImage()->GetBoundingBox(),
-				&iter->GetCoins()->GetBoundingBox()))
+				&iter->GetRect()))
 			{
 				m_vecCoin.erase(iter);
 				break;
-
-
 			}
 
 		}

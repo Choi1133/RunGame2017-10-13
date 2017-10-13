@@ -8,6 +8,8 @@ private:
 	float	 m_fPosX;
 	float	 m_fPosY;
 
+	RECT	 m_rtBody;
+
 
 public:
 	cCoins();
@@ -19,6 +21,7 @@ public:
 	void SetImg(cImage* Img) { m_pCoins = Img; }
 
 	cImage* GetCoins() { return m_pCoins; }
+	RECT	GetRect() { return m_rtBody; }
 	
 };
 
