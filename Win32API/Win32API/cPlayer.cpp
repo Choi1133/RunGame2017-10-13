@@ -3,7 +3,7 @@
 
 
 cPlayer::cPlayer()
-	: m_isSlide(false)
+	
 	
 {
 	m_pPlayerImage = new cImage;
@@ -21,6 +21,12 @@ void cPlayer::Setup()
 	m_nMapYPos = MAP1_Y;
 	m_fJumpPower = 7.0f;
 
+	m_nFrameX = 1;
+	m_nFrameY = 0;
+
+	m_nMaxFrameX = 8;
+	m_nMaxFrameY = 0;
+
 	SetLanding();
 }
 
@@ -37,21 +43,75 @@ void cPlayer::Update()
 	}
 
 
-	
 	if (g_pKeyManager->isOnceKeyDown(VK_SPACE)) // 스페이스 누를때
 	{
 
-   		if (m_isJumpping && !m_isJumpping2)// 1단 점프중이면 
+		if (m_isJumpping && !m_isJumpping2)// 1단 점프중이면 
 		{
+			
+
 			m_fGravity = 0.0f; // 현재 중력은 0으로 바꿔준다 (1단 점프 끝 )
 			m_isJumpping2 = true; // 2단 점프를 트루로 
 		}
 
 		m_isJumpping = true; // 1단 점프 트루
+
+		
+
 	}
 
+	isJumping();
 
 
+
+
+
+	if (g_pKeyManager->isStayKeyDown(VK_DOWN))
+	{
+		m_nFrameX = 6;
+		m_nFrameY = 1;
+
+		m_nMaxFrameX = 11;
+		m_nMaxFrameY = 1;
+	}
+	else
+	{
+		m_nFrameX = 1;
+		m_nFrameY = 0;
+
+		m_nMaxFrameX = 8;
+		m_nMaxFrameY = 0;
+	}
+
+	
+
+
+
+	
+}
+
+void cPlayer::Render()
+{
+
+	RectangleMake(g_hDC, m_pPlayerImage->GetBoundingBox());
+
+		m_pPlayerImage->FrameRender(g_hDC,
+			(m_pPlayerImage->GetPosX() - m_pPlayerImage->GetFrameWidth() / 2),
+			(m_pPlayerImage->GetPosY() - m_pPlayerImage->GetFrameHeight() / 2),
+			m_nFrameX, m_nFrameY, m_nMaxFrameX, m_nMaxFrameY, 5);
+
+	
+}
+
+void cPlayer::SetLanding()
+{
+	m_pPlayerImage->SetCenterY(m_nMapYPos);
+	m_fGravity = 0.0f;
+	m_isJumpping = false;
+}
+
+void cPlayer::isJumping()
+{
 	if (m_isJumpping) // 1단 점프 중일때 
 	{
 
@@ -65,31 +125,9 @@ void cPlayer::Update()
 
 			m_isJumpping = false;
 			m_isJumpping2 = false;
-			
+
 		}
 
 	}
 
-
-
-	
-
-	
-}
-
-void cPlayer::Render()
-{
-		m_pPlayerImage->FrameRender(g_hDC,
-			(m_pPlayerImage->GetPosX() - m_pPlayerImage->GetFrameWidth() / 2),
-			(m_pPlayerImage->GetPosY() - m_pPlayerImage->GetFrameHeight() / 2),
-			1, 0, 8, 0, 5);
-
-	
-}
-
-void cPlayer::SetLanding()
-{
-	m_pPlayerImage->SetCenterY(m_nMapYPos);
-	m_fGravity = 0.0f;
-	m_isJumpping = false;
 }

@@ -14,9 +14,9 @@ private:
 	cMap*			m_pMap;
 	cPlayer*		m_pPlayer;
 	cTitle*			m_pTitle;
-	cCoins*			m_pCoins;
 
 	vector<cCoins>	m_vecCoin;
+	cImage*			m_pCoinImage;
 
 
 
@@ -29,4 +29,7 @@ public:
 	virtual void Render() override;
 
 	void MakeCoin();
+
+	void CoinUpdate();
+	void CoinFrame();
 };

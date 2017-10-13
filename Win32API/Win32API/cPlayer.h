@@ -18,6 +18,12 @@ private:
 
 	int				m_nMapYPos;
 
+	int				m_nFrameX;
+	int				m_nFrameY;
+
+	int				m_nMaxFrameX;
+	int				m_nMaxFrameY;
+
 
 
 public:
@@ -29,5 +35,9 @@ public:
 	void Render();
 
 	void SetLanding();
+
+	cImage* GetPlayerImage() { return m_pPlayerImage; }
+
+	void isJumping();
 };
 
