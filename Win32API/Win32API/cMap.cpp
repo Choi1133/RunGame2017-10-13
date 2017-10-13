@@ -16,7 +16,7 @@ cMap::~cMap()
 void cMap::Setup()
 {
 	m_nSourX = 0;
-	m_nMoveSpeed = 5;
+	m_nMoveSpeed = 3;
 }
 
 void cMap::Update()

@@ -14,5 +14,9 @@ public:
 	void Setup();
 	void Update();
 	void Render();
+
+
+	cImage* GetCoins() { return m_pCoins; }
+	
 };
 

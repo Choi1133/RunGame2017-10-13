@@ -16,7 +16,8 @@ private:
 	cTitle*			m_pTitle;
 	cCoins*			m_pCoins;
 
-	cImage*			m_pCoin;
+	vector<cCoins>	m_vecCoin;
+
 
 
 public:
@@ -26,4 +27,6 @@ public:
 	void Setup();
 	virtual void Update() override;
 	virtual void Render() override;
+
+	void MakeCoin();
 };

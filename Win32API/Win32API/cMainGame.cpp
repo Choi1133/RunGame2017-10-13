@@ -14,10 +14,7 @@ cMainGame::cMainGame()
 	m_pTitle = new cTitle;
 	m_pCoins = new cCoins;
 
-	
 
-
-	
 }
 
 cMainGame::~cMainGame()
@@ -47,7 +44,19 @@ void cMainGame::Update()
 	{
 		m_pMap->Update();
 		m_pPlayer->Update();
-		m_pCoins->Update();
+
+		
+		for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
+		{
+			MakeCoin();
+			iter->Update();
+			iter->GetCoins()->SetPosX(iter->GetCoins()->GetPosX() + rand() % WINSIZEX);
+
+		}
+	
+			
+		
+		
 	
 	}
 	else if (g_pKeyManager->isOnceKeyDown(VK_RETURN))
@@ -68,7 +77,12 @@ void cMainGame::Render()
 
 		m_pPlayer->Render();
 
-		m_pCoins->Render();
+		for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
+		{
+			iter->Render();
+
+		}
+
 
 	
 		
@@ -79,4 +93,9 @@ void cMainGame::Render()
 		m_pTitle->Render();
 		
 	}
+}
+
+void cMainGame::MakeCoin()
+{
+	m_vecCoin.push_back(*m_pCoins);
 }
