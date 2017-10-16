@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "cBlock.h"
-
+#include "cPlayer.h"
 
 cBlock::cBlock()
 {
@@ -44,6 +44,36 @@ void cBlock::Update()
 		iter->PosX -= 3.0f;
 	}
 
+
+	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)
+	{
+		RECT rt;
+		RECT rtBlock = RectMake(iter->PosX,iter->PosY,
+			m_pImageBlock->GetFrameWidth(),
+			m_pImageBlock->GetFrameHeight());
+
+		RECT rtBlock2 = RectMake(iter->PosX, iter->PosY,
+			m_pImageBlock2->GetFrameWidth(),
+			m_pImageBlock2->GetFrameHeight());
+
+		if (IntersectRect(&rt, &rtBlock, &m_pPlayer->GetPlayerImage()->GetBoundingBox()))
+		{
+			if (m_pPlayer->GetDamageDelay() == 0)
+			{
+				m_pPlayer->SetDamageDelay(30);
+			}
+		}
+
+		if (IntersectRect(&rt, &rtBlock2, &m_pPlayer->GetPlayerImage()->GetBoundingBox()))
+		{
+
+			if (m_pPlayer->GetDamageDelay() == 0)
+			{
+				m_pPlayer->SetDamageDelay(30);
+			}
+		}
+		
+	}
 
 
 	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)

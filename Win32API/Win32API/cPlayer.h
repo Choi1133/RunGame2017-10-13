@@ -23,7 +23,7 @@ private:
 
 	int				m_nMaxFrameX;
 	int				m_nMaxFrameY;
-
+	int				m_nDamageDelay;
 
 
 public:
@@ -37,6 +37,9 @@ public:
 	void SetLanding();
 
 	cImage* GetPlayerImage() { return m_pPlayerImage; }
+
+	void SetDamageDelay(int delay) { m_nDamageDelay = delay; }
+	int  GetDamageDelay() { return m_nDamageDelay; }
 
 	void isJumping();
 };

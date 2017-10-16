@@ -4,6 +4,8 @@
 
 #define GEN_DELAY 100
 
+class cPlayer;
+
 
 enum E_TYPE {ET_ONEBLOCK, ET_TWOBLOCK,ET_MAX};
 
@@ -28,8 +30,9 @@ private:
 
 	int		 m_nGenDelay;
 	int		 m_nScore;
+	
 
-
+	cPlayer*	 m_pPlayer;
 
 
 public:

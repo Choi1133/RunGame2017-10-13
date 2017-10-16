@@ -21,12 +21,14 @@ void cPlayer::Setup()
 {
 	m_nMapYPos = MAP1_Y;
 	m_fJumpPower = 7.0f;
+	
 
 	m_nFrameX = 1;
 	m_nFrameY = 0;
 
 	m_nMaxFrameX = 8;
 	m_nMaxFrameY = 0;
+	m_nDamageDelay = 0;
 	m_isSlide = false;
 
 	SetLanding();
@@ -93,6 +95,9 @@ void cPlayer::Update()
 		m_nMaxFrameY = 0;
 	}
 
+	if (m_nDamageDelay > 0)
+		--m_nDamageDelay;
+
 
 	
 }
@@ -105,13 +110,14 @@ void cPlayer::Render()
 
 
 	
-	
+	if (m_nDamageDelay % 2 == 0)
+	{
 		m_pPlayerImage->FrameRender(g_hDC,
 			(m_pPlayerImage->GetPosX() - m_pPlayerImage->GetFrameWidth() / 2),
 			(m_pPlayerImage->GetPosY() - m_pPlayerImage->GetFrameHeight() / 2),
 			m_nFrameX, m_nFrameY, m_nMaxFrameX, m_nMaxFrameY, 5);
-	
-	
+	}
+
 }
 
 void cPlayer::SetLanding()
