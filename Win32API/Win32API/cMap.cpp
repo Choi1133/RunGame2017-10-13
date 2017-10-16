@@ -11,6 +11,7 @@ cMap::cMap()
 
 cMap::~cMap()
 {
+	delete m_pBgImage;
 }
 
 void cMap::Setup()

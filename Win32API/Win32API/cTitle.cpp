@@ -15,6 +15,7 @@ cTitle::cTitle()
 
 cTitle::~cTitle()
 {
+	delete	m_pStartImage;
 }
 
 void cTitle::Setup()

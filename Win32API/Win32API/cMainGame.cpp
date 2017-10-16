@@ -8,6 +8,10 @@
 
 cMainGame::cMainGame()
 	: m_isPlaying(false)
+	, m_nScore1(0)
+	, m_nSour(0)
+	, m_nMainSpeed(3)
+	
 {
 	m_pMap = new cMap;
 	m_pPlayer = new cPlayer;
@@ -15,6 +19,9 @@ cMainGame::cMainGame()
 
 	m_pCoinImage = new cImage;
 	m_pCoinImage->Setup("images/coins.bmp", 150, 50, 6, 1, WINSIZEX / 2, WINSIZEY / 2 + 50, true, RGB(255, 0, 255));
+
+	m_pImgMain = new cImage;
+	m_pImgMain->Setup("images/backBg.bmp",WINSIZEX,WINSIZEY);
 
 
 }
@@ -25,7 +32,7 @@ cMainGame::~cMainGame()
 	delete m_pMap;
 	delete m_pTitle;
 	delete m_pCoinImage;
-
+	delete m_pImgMain;
 
 	
 }
@@ -47,22 +54,9 @@ void cMainGame::Update()
 		m_pMap->Update();
 		m_pPlayer->Update();
 
-		CoinUpdate();
-		CoinFrame();
-	
-		for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
-		{
-			RECT rt;
-			if (IntersectRect(&rt,
-				&m_pPlayer->GetPlayerImage()->GetBoundingBox(),
-				&iter->GetRect()))
-			{
-				m_vecCoin.erase(iter);
-				break;
-			}
 
-		}
-			
+		CoinSystem();
+	
 	
 	
 	}
@@ -71,6 +65,11 @@ void cMainGame::Update()
 		Setup();
 		m_isPlaying = true;
 	}
+
+	m_nSour += m_nMainSpeed;
+
+	if (m_nSour >= 900)
+		m_nSour = 0;
 }
 
 void cMainGame::Render()
@@ -94,11 +93,20 @@ void cMainGame::Render()
 		char szStr[128];
 		//str += "asdfasdfsadf";
 		str += itoa(m_vecCoin.size(), szStr, 10); // itoa => 인트형을 문자열로 변환 (변환 소스, 임시 저장소, 숫자의 진수)
+		TextOutA(g_hDC, 100, 150, str.c_str(), str.length());
+
+		str = "점수 : ";
+		str += itoa(m_nScore1, szStr, 10);
 		TextOutA(g_hDC, 100, 200, str.c_str(), str.length());
+
+
+
+
 	}
 	else
 	{
 		//TextOut(g_hDC, WINSIZEX / 2 - 200, WINSIZEY / 2, "Enter to Start", strlen("Enter to Start"));
+		m_pImgMain->Render(g_hDC,0,0,m_nSour,0 ,WINSIZEX, WINSIZEY);
 		m_pTitle->Render();
 		
 	}
@@ -113,9 +121,7 @@ void cMainGame::MakeCoin()
 
 void cMainGame::CoinUpdate()
 {
-
 	static int count = 0;
-
 	if (count >= 10)
 	{
 		count = 0;
@@ -125,11 +131,13 @@ void cMainGame::CoinUpdate()
 	else
 		++count;
 
-
 	for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
 	{
 
 		iter->Update();
+
+
+		
 	}
 
 }
@@ -154,4 +162,47 @@ void cMainGame::CoinFrame()
 	}
 	else
 		++count2;
+}
+
+void cMainGame::CoinCollision()
+{
+	for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
+	{
+		if (iter->GetPosX() < -50)
+		{
+			
+			m_vecCoin.erase(iter);
+			break;
+		}
+	}
+
+
+	for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
+	{
+		RECT rt;
+		
+		RECT rtCoin = RectMake(iter->GetPosX(), iter->GetPosY(),
+			iter->GetCoins()->GetFrameWidth(), iter->GetCoins()->GetFrameHeight());
+
+		if (IntersectRect(&rt,
+			&m_pPlayer->GetPlayerImage()->GetBoundingBox(),
+			&rtCoin))
+		{
+			m_nScore1 += 10;
+			m_vecCoin.erase(iter);
+			break;
+		}
+
+	}
+
+}
+
+void cMainGame::CoinSystem()
+{
+	CoinUpdate();
+	CoinFrame();
+
+
+	CoinCollision();
+
 }

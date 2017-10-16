@@ -144,5 +144,8 @@ public:
 		return RectMakeCenter(m_pImageInfo->fPosX, m_pImageInfo->fPosY,
 			m_pImageInfo->nFrameWidth - adjX, m_pImageInfo->nFrameHeight - adjY);
 	}
+
+
+
 };
 

@@ -138,6 +138,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cBlock.h" />
     <ClInclude Include="cCoins.h" />
     <ClInclude Include="cGameNode.h" />
     <ClInclude Include="cImage.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Win32API.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cBlock.cpp" />
     <ClCompile Include="cCoins.cpp" />
     <ClCompile Include="cGameNode.cpp" />
     <ClCompile Include="cImage.cpp" />
