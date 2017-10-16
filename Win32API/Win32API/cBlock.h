@@ -2,7 +2,7 @@
 #include "cImage.h"
 
 
-#define GEN_DELAY 50
+#define GEN_DELAY 100
 
 
 enum E_TYPE {ET_ONEBLOCK, ET_TWOBLOCK,ET_MAX};

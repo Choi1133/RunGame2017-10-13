@@ -39,7 +39,7 @@ void cBlock::Update()
 
 	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)
 	{
-		iter->PosX += 3.0f;
+		iter->PosX -= 3.0f;
 	}
 
 }
@@ -51,12 +51,12 @@ void cBlock::Render()
 	{
 		switch (iter->type)
 		{
-	case ET_ONEBLOCK:
-		m_pImageBlock->Render(g_hDC, iter->PosX, iter->PosY);
-		break;
-	case ET_TWOBLOCK:
-		m_pImageBlock2->Render(g_hDC, iter->PosX, iter->PosY);
-		break;
+			case ET_ONEBLOCK:
+				m_pImageBlock->Render(g_hDC, iter->PosX, iter->PosY);
+				break;
+			case ET_TWOBLOCK:
+				m_pImageBlock2->Render(g_hDC, iter->PosX, iter->PosY);
+				break;
 		}
 	}
 }
@@ -66,8 +66,8 @@ void cBlock::CreateBlock()
 	tagBlock stBlock;
 
 	stBlock.type = (E_TYPE)GetRandom(ET_MAX);
-	stBlock.PosX = WINSIZEX + 50;
-	stBlock.PosY = WINSIZEY / 2 + 200;
+	stBlock.PosX = WINSIZEX /2 + 50;
+	stBlock.PosY = WINSIZEY / 2 + 115;
 
 	switch (stBlock.type)
 	{
