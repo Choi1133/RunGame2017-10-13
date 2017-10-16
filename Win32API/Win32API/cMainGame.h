@@ -5,6 +5,8 @@ class cMap;
 class cPlayer;
 class cTitle;
 class cCoins;
+class cBlock;
+
 
 class cMainGame : public cGameNode
 {
@@ -16,6 +18,8 @@ private:
 	cMap*			m_pMap;
 	cPlayer*		m_pPlayer;
 	cTitle*			m_pTitle;
+	cBlock*			m_pBlock;
+
 
 	vector<cCoins>	m_vecCoin;
 	cImage*			m_pCoinImage;

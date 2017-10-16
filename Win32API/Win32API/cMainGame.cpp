@@ -4,6 +4,7 @@
 #include "cPlayer.h"
 #include "cTitle.h"
 #include "cCoins.h"
+#include "cBlock.h"
 
 
 cMainGame::cMainGame()
@@ -16,12 +17,13 @@ cMainGame::cMainGame()
 	m_pMap = new cMap;
 	m_pPlayer = new cPlayer;
 	m_pTitle = new cTitle;
+	m_pBlock = new cBlock;
 
 	m_pCoinImage = new cImage;
 	m_pCoinImage->Setup("images/coins.bmp", 150, 50, 6, 1, WINSIZEX / 2, WINSIZEY / 2 + 50, true, RGB(255, 0, 255));
 
 	m_pImgMain = new cImage;
-	m_pImgMain->Setup("images/backBg.bmp",WINSIZEX,WINSIZEY);
+	m_pImgMain->Setup("images/backBg.bmp",3024,WINSIZEY);
 
 
 }
@@ -33,7 +35,7 @@ cMainGame::~cMainGame()
 	delete m_pTitle;
 	delete m_pCoinImage;
 	delete m_pImgMain;
-
+	delete m_pBlock;
 	
 }
 
@@ -53,7 +55,7 @@ void cMainGame::Update()
 	{
 		m_pMap->Update();
 		m_pPlayer->Update();
-
+		m_pBlock->Update();
 
 		CoinSystem();
 	
@@ -68,7 +70,7 @@ void cMainGame::Update()
 
 	m_nSour += m_nMainSpeed;
 
-	if (m_nSour >= 900)
+	if (m_nSour >= 2000)
 		m_nSour = 0;
 }
 
@@ -82,6 +84,9 @@ void cMainGame::Render()
 		m_pMap->Render();
 
 		m_pPlayer->Render();
+
+		m_pBlock->Render();
+
 		for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
 		{
 			iter->Render();
