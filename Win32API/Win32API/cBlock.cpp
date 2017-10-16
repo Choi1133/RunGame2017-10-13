@@ -28,18 +28,32 @@ void cBlock::Setup()
 
 void cBlock::Update()
 {
-	if (m_nGenDelay > GEN_DELAY)	
-		++m_nGenDelay;
-	else
+	static int count = 0;
+	if (count >= 100)
 	{
-		m_nGenDelay = 0;
+		count = 0;
+
 		CreateBlock();
 	}
+	else
+		++count;
 
 
 	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)
 	{
 		iter->PosX -= 3.0f;
+	}
+
+
+
+	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)
+	{
+		if (iter->PosX < -20)
+		{
+			m_vecImgBlock.erase(iter);
+			break;
+		}
+
 	}
 
 }
@@ -52,7 +66,7 @@ void cBlock::Render()
 		switch (iter->type)
 		{
 			case ET_ONEBLOCK:
-				m_pImageBlock->Render(g_hDC, iter->PosX, iter->PosY);
+				m_pImageBlock->Render(g_hDC, iter->PosX, iter->PosY + 50);
 				break;
 			case ET_TWOBLOCK:
 				m_pImageBlock2->Render(g_hDC, iter->PosX, iter->PosY);
@@ -66,8 +80,8 @@ void cBlock::CreateBlock()
 	tagBlock stBlock;
 
 	stBlock.type = (E_TYPE)GetRandom(ET_MAX);
-	stBlock.PosX = WINSIZEX /2 + 50;
-	stBlock.PosY = WINSIZEY / 2 + 115;
+	stBlock.PosX = WINSIZEX  + 50;
+	stBlock.PosY = WINSIZEY / 2 + 120;
 
 	switch (stBlock.type)
 	{
