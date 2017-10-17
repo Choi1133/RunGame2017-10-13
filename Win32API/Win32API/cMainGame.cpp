@@ -5,7 +5,7 @@
 #include "cTitle.h"
 #include "cCoins.h"
 #include "cBlock.h"
-
+#include "cPotion.h"
 
 cMainGame::cMainGame()
 	: m_isPlaying(false)
@@ -18,12 +18,20 @@ cMainGame::cMainGame()
 	m_pPlayer = new cPlayer;
 	m_pTitle = new cTitle;
 	m_pBlock = new cBlock;
+	m_pPotion = new cPotion;
 
 	m_pCoinImage = new cImage;
 	m_pCoinImage->Setup("images/coins.bmp", 150, 50, 6, 1, WINSIZEX / 2, WINSIZEY / 2 + 50, true, RGB(255, 0, 255));
 
 	m_pImgMain = new cImage;
 	m_pImgMain->Setup("images/backBg.bmp",3024,WINSIZEY);
+
+
+	m_pImgNum1 =new cImage;
+	m_pImgNum1->Setup("images/1.bmp", 90, 102);
+
+	m_pImgNum2;
+	m_pImgNum3;
 
 
 }
@@ -36,7 +44,7 @@ cMainGame::~cMainGame()
 	delete m_pCoinImage;
 	delete m_pImgMain;
 	delete m_pBlock;
-	
+	delete m_pPotion;
 }
 
 void cMainGame::Setup()
@@ -44,6 +52,7 @@ void cMainGame::Setup()
 	m_pMap->Setup();
 	m_pPlayer->Setup();
 	m_pTitle->Setup();
+	m_pPotion->Setup();
 
 }
 
@@ -56,8 +65,10 @@ void cMainGame::Update()
 		m_pMap->Update();
 		m_pPlayer->Update();
 		m_pBlock->Update();
+		m_pPotion->Update();
 
 		CoinSystem();
+		
 	
 	
 	
@@ -86,6 +97,8 @@ void cMainGame::Render()
 		m_pPlayer->Render();
 
 		m_pBlock->Render();
+
+		m_pPotion->Render();
 
 		for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
 		{
@@ -211,3 +224,4 @@ void cMainGame::CoinSystem()
 	CoinCollision();
 
 }
+

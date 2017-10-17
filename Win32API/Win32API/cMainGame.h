@@ -6,7 +6,7 @@ class cPlayer;
 class cTitle;
 class cCoins;
 class cBlock;
-
+class cPotion;
 
 class cMainGame : public cGameNode
 {
@@ -19,12 +19,19 @@ private:
 	cPlayer*		m_pPlayer;
 	cTitle*			m_pTitle;
 	cBlock*			m_pBlock;
+	cPotion*		m_pPotion;
 
 
 	vector<cCoins>	m_vecCoin;
+	vector<cPotion> m_vecPotion;
 	cImage*			m_pCoinImage;
 
 	cImage*			m_pImgMain;
+
+	cImage*			m_pImgNum1;
+	cImage*			m_pImgNum2;
+	cImage*			m_pImgNum3;
+
 	int				m_nSour;
 	int				m_nMainSpeed;
 
@@ -43,4 +50,7 @@ public:
 	void CoinFrame();
 	void CoinCollision();
 	void CoinSystem();
+
+
+
 };

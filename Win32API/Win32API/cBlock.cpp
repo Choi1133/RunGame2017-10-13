@@ -10,6 +10,8 @@ cBlock::cBlock()
 	m_pImageBlock2 = new cImage;
 	m_pImageBlock2->Setup("images/block.bmp", 50, 100);
 
+	m_pPlayer = new cPlayer;
+
 
 }
 
@@ -19,6 +21,7 @@ cBlock::~cBlock()
 
 	delete m_pImageBlock;
 	delete m_pImageBlock2;
+	delete m_pPlayer;
 }
 
 void cBlock::Setup()
@@ -48,37 +51,48 @@ void cBlock::Update()
 	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)
 	{
 		RECT rt;
-		RECT rtBlock = RectMake(iter->PosX,iter->PosY,
-			m_pImageBlock->GetFrameWidth(),
-			m_pImageBlock->GetFrameHeight());
 
-		RECT rtBlock2 = RectMake(iter->PosX, iter->PosY,
-			m_pImageBlock2->GetFrameWidth(),
-			m_pImageBlock2->GetFrameHeight());
-
-		if (IntersectRect(&rt, &rtBlock, &m_pPlayer->GetPlayerImage()->GetBoundingBox()))
+		switch (iter->type)
 		{
-			if (m_pPlayer->GetDamageDelay() == 0)
-			{
-				m_pPlayer->SetDamageDelay(30);
-			}
-		}
+		case ET_ONEBLOCK:
 
-		if (IntersectRect(&rt, &rtBlock2, &m_pPlayer->GetPlayerImage()->GetBoundingBox()))
-		{
+			RECT rtBlock = RectMake(iter->PosX, iter->PosY,
+				m_pImageBlock->GetFrameWidth(),
+				m_pImageBlock->GetFrameHeight());
 
-			if (m_pPlayer->GetDamageDelay() == 0)
+			if (IntersectRect(&rt, &rtBlock, &m_pPlayer->GetPlayerImage()->GetBoundingBox()))
 			{
-				m_pPlayer->SetDamageDelay(30);
+				if (m_pPlayer->GetDamageDelay() == 0)
+				{
+					m_pPlayer->SetDamageDelay(30);
+				}
 			}
+			break;
+
+		case ET_TWOBLOCK:
+
+			RECT rtBlock2 = RectMake(iter->PosX, iter->PosY,
+				m_pImageBlock2->GetFrameWidth(),
+				m_pImageBlock2->GetFrameHeight());
+
+
+			if (IntersectRect(&rt, &rtBlock2, &m_pPlayer->GetPlayerImage()->GetBoundingBox()))
+			{
+
+				if (m_pPlayer->GetDamageDelay() == 0)
+				{
+					m_pPlayer->SetDamageDelay(30);
+				}
+			}
+			break;
 		}
-		
+	
 	}
 
 
 	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)
 	{
-		if (iter->PosX < -20)
+		if (iter->PosX < -50)
 		{
 			m_vecImgBlock.erase(iter);
 			break;
@@ -91,18 +105,36 @@ void cBlock::Update()
 void cBlock::Render()
 {
 
+
+
+
+	//RectangleMake(g_hDC, m_pPlayerImage->GetBoundingBox(20, 5));
+
 	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)
 	{
+
+		
 		switch (iter->type)
 		{
 			case ET_ONEBLOCK:
 				m_pImageBlock->Render(g_hDC, iter->PosX, iter->PosY + 50);
+				BoundingLineMake(g_hDC, iter->PosX, iter->PosY + 50,
+					m_pImageBlock->GetFrameWidth(), m_pImageBlock->GetFrameHeight());
+
 				break;
 			case ET_TWOBLOCK:
+
 				m_pImageBlock2->Render(g_hDC, iter->PosX, iter->PosY);
+				BoundingLineMake(g_hDC, iter->PosX, iter->PosY,
+					m_pImageBlock2->GetFrameWidth(), m_pImageBlock2->GetFrameHeight());
 				break;
 		}
 	}
+
+
+
+	
+
 }
 
 void cBlock::CreateBlock()

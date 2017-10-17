@@ -146,6 +146,7 @@
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cMap.h" />
     <ClInclude Include="cPlayer.h" />
+    <ClInclude Include="cPotion.h" />
     <ClInclude Include="cSingletonBase.h" />
     <ClInclude Include="cTitle.h" />
     <ClInclude Include="MacroUtility.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cMap.cpp" />
     <ClCompile Include="cPlayer.cpp" />
+    <ClCompile Include="cPotion.cpp" />
     <ClCompile Include="cTitle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
