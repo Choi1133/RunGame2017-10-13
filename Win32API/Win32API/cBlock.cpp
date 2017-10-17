@@ -10,7 +10,7 @@ cBlock::cBlock()
 	m_pImageBlock2 = new cImage;
 	m_pImageBlock2->Setup("images/block.bmp", 50, 100);
 
-	m_pPlayer = new cPlayer;
+	
 
 
 }
@@ -21,7 +21,7 @@ cBlock::~cBlock()
 
 	delete m_pImageBlock;
 	delete m_pImageBlock2;
-	delete m_pPlayer;
+	
 }
 
 void cBlock::Setup()
@@ -32,6 +32,7 @@ void cBlock::Setup()
 void cBlock::Update()
 {
 	static int count = 0;
+
 	if (count >= 100)
 	{
 		count = 0;
@@ -99,42 +100,30 @@ void cBlock::Update()
 		}
 
 	}
-
+	
 }
 
 void cBlock::Render()
 {
 
-
-
-
-	//RectangleMake(g_hDC, m_pPlayerImage->GetBoundingBox(20, 5));
-
 	for (auto iter = m_vecImgBlock.begin(); iter != m_vecImgBlock.end(); ++iter)
-	{
-
-		
+	{		
 		switch (iter->type)
 		{
 			case ET_ONEBLOCK:
 				m_pImageBlock->Render(g_hDC, iter->PosX, iter->PosY + 50);
 				BoundingLineMake(g_hDC, iter->PosX, iter->PosY + 50,
 					m_pImageBlock->GetFrameWidth(), m_pImageBlock->GetFrameHeight());
-
 				break;
-			case ET_TWOBLOCK:
 
+			case ET_TWOBLOCK:
 				m_pImageBlock2->Render(g_hDC, iter->PosX, iter->PosY);
 				BoundingLineMake(g_hDC, iter->PosX, iter->PosY,
 					m_pImageBlock2->GetFrameWidth(), m_pImageBlock2->GetFrameHeight());
 				break;
 		}
 	}
-
-
-
 	
-
 }
 
 void cBlock::CreateBlock()

@@ -44,6 +44,10 @@ public:
 	void Update();
 	void Render();
 
+	void SetPlayer(cPlayer* player) { m_pPlayer = player; }
+
 	void CreateBlock();
+
+
 };
 

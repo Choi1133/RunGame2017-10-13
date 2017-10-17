@@ -8,7 +8,7 @@ cPotion::cPotion()
 	m_pPotion->Setup("images/potion.bmp", 100, 30, 5, 1, true, RGB(255, 0, 255));
 
 	
-	m_pPlayer = new cPlayer;
+	
 	
 }
 
@@ -16,7 +16,7 @@ cPotion::cPotion()
 cPotion::~cPotion()
 {
 	delete m_pPotion;
-	delete m_pPlayer;
+	
 }
 
 void cPotion::Setup()

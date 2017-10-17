@@ -20,6 +20,9 @@ cMainGame::cMainGame()
 	m_pBlock = new cBlock;
 	m_pPotion = new cPotion;
 
+	m_pBlock->SetPlayer(m_pPlayer);
+	m_pPotion->SetPlayer(m_pPlayer);
+
 	m_pCoinImage = new cImage;
 	m_pCoinImage->Setup("images/coins.bmp", 150, 50, 6, 1, WINSIZEX / 2, WINSIZEY / 2 + 50, true, RGB(255, 0, 255));
 
@@ -140,6 +143,7 @@ void cMainGame::MakeCoin()
 void cMainGame::CoinUpdate()
 {
 	static int count = 0;
+
 	if (count >= 10)
 	{
 		count = 0;
@@ -149,13 +153,10 @@ void cMainGame::CoinUpdate()
 	else
 		++count;
 
+
 	for (auto iter = m_vecCoin.begin(); iter != m_vecCoin.end(); ++iter)
 	{
-
-		iter->Update();
-
-
-		
+		iter->Update();		
 	}
 
 }
@@ -219,7 +220,6 @@ void cMainGame::CoinSystem()
 {
 	CoinUpdate();
 	CoinFrame();
-
 
 	CoinCollision();
 

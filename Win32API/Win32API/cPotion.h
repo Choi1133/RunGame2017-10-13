@@ -35,6 +35,7 @@ public:
 	void MakePotion();
 	void PotionFrame();
 	
+	void SetPlayer(cPlayer* player) { m_pPlayer = player; }
 
 };
 
